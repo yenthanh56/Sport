@@ -1,0 +1,22 @@
+<div class="mt-4">
+    <a href="/top/create">Create Information</a>
+    <a href="/me/tablist">Tablist Information</a>
+    <div class="row mt-4">
+        {{#each sports}}
+        <div class="col-sm-6 col-lg-3">
+            <div class="card">
+                <a href="/top/{{this.slug}}">
+                    <img src="{{this.imagebackground}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <img src="{{this.imageavata}}" alt="" class="avata_img">
+
+                        <h5 class="card-title mt-40 text-center">{{this.name}}</h5>
+                        {{!-- <p class="card-text">{{this.description}}</p> --}}
+
+                    </div>
+                </a>
+            </div>
+        </div>
+        {{/each }}
+    </div>
+</div>

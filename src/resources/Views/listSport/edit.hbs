@@ -1,0 +1,30 @@
+<div class="mt-4">
+    <h3 style="color:#fff">Create Athlete</h3>
+    <div class="row" style="color:#fff">
+        <form method="POST" action="/top/{{sports._id}}?_method=PUT">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" value="{{sports.name}}" id="name" name="name">
+            </div>
+            <div class="mb-3">
+                <label for="totalmatch" class="form-label">Total Match</label>
+                <input type="text" class="form-control" value="{{sports.totalmatch}}" id="totalmatch" name="totalmatch">
+            </div>
+            <div class="mb-3">
+                <label for="goal" class="form-label">Goal</label>
+                <input type="text" class="form-control" value="{{sports.goal}}" id="goal" name="goal">
+            </div>
+            <div class="mb-3">
+                <label for="goal_country" class="form-label">Goal Country</label>
+                <input type="text" class="form-control" value="{{sports.goal_country}}" id="goal_country"
+                    name="goal_country">
+            </div>
+            <div class="mb-3">
+                <label for="ballon" class="form-label">Ballon</label>
+                <input type="text" class="form-control" value="{{sports.ballon}}" id="ballon" name="ballon">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Lưu lại</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+<div class="mt-4">
+    <div class="row">
+        {{#each sports}}
+        <div class="col-sm-6 col-lg-4">
+            <div class="card mt-4">
+                <img src="{{this.imagebackground}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{this.name}}</h5>
+                    <p class="card-text">{{this.description}}</p>
+                    <a href="#" class="btn btn-primary">Nhấn xem </a>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>

@@ -1,0 +1,147 @@
+<form class="mt-4" method="post" action="/top/handleform">
+
+    <div class="mt-4">
+        <div>
+            <h3 style="color:#fff">List Athlete</h3>
+            <a href="/me/trash">My Trash ({{countdelete}})</a>
+
+            <div class="mt-4 d-flex align-items-center">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="checkAll">
+                    <label class="form-check-label" for="checkAll" style="color: #fff">
+                        Chọn tất cả
+                    </label>
+                </div>
+                <select class="form-select form-select-sm checkbox-select-action" aria-label="Default select example"
+                    name="action" required>
+                    <option selected value="">Hành động</option>
+                    <option value="delete">Xóa</option>
+
+
+                </select>
+                <button type="submit" class="btn btn-primary btn-sm checked-Btn " disabled>Thực hiện</button>
+            </div>
+        </div>
+        <table class="table" style="color:#fff">
+            <thead>
+                <tr>
+
+                    <th scope="col" colspan="2">Ballon</th>
+                    <th scope="col">STT</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">TotalMatch</th>
+                    <th scope="col">Goal</th>
+                    <th scope="col">Goal-Country</th>
+                    <th scope="col" colspan="2">Ballon</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each sports}}
+                <tr>
+                    <td>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="newsId[]" value="{{this._id}}">
+
+                        </div>
+                    </td>
+                    <th scope="row">{{sum @index 1}}</th>
+                    <td>{{this.name}}</td>
+                    <td>{{this.totalmatch}} </td>
+                    <td>{{this.goal}} </td>
+                    <td>{{this.goal_country}}</td>
+                    <td>{{this.ballon}}</td>
+                    <td class="text-end">
+                        <a href="/top/{{this._id}}/edit" class="btn btn-success">Edit</a>
+                        <a href="#" class="btn btn-danger" data-id="{{this._id}}" data-bs-toggle="modal"
+                            data-bs-target="#delete_tablist">Delete</a>
+                    </td>
+                    {{else}}
+                <tr>
+                    <td colspan="6" class="text-center">
+                        You not yet tabList
+                        <a href="/top/create">Add tabList</a>
+                    </td>
+                </tr>
+                </tr>
+                {{/each }}
+            </tbody>
+        </table>
+    </div>
+</form>
+{{!-- form submit delete --}}
+<form method="POST" name='form-submit-delete'></form>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="delete_tablist" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Tablist</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete!!!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-delete">Xóa bỏ</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        var deleteTablist = document.getElementById('delete_tablist');
+        var id;
+        const btnDelete = document.querySelector('.btn-delete');
+        const formSubmitdelete = document.forms['form-submit-delete'];
+
+        const checkAll = $('#checkAll');
+        const checkItem = $('input[name="newsId[]"]');
+        const checkedBtn = $('.checked-Btn');
+
+        deleteTablist.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget
+            var id = button.getAttribute('data-id');
+            btnDelete.onclick = function () {
+                formSubmitdelete.action = '/top/' + id + '?_method=DELETE';
+                formSubmitdelete.submit();
+            }
+        })
+
+        checkAll.change(function () {
+            const ischeckAll = $(this).prop('checked');
+            checkItem.prop('checked', ischeckAll);
+            rennderCheckedBtn();
+        })
+
+        checkItem.change(function () {
+            const ischeckAllItem = checkItem.length === $('input[name="newsId[]"]:checked').length;
+            checkAll.prop('checked', ischeckAllItem);
+            rennderCheckedBtn();
+
+        })
+
+        function rennderCheckedBtn() {
+            const checkedCount = $('input[name="newsId[]"]:checked').length;
+            if (checkedCount > 0) {
+                checkedBtn.removeAttr('disabled', false)
+            } else {
+                checkedBtn.addattr('disabled', true)
+
+            }
+
+        }
+
+
+
+
+    })
+
+
+</script>

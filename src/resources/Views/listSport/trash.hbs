@@ -1,0 +1,133 @@
+<div class="mt-4">
+    <h3 style="color:#fff">List Athlete has been deleted</h3>
+    <a href="/me/tablist">Turn around</a>
+    <table class="table" style="color:#fff">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Name</th>
+                <th scope="col">TotalMatch</th>
+                <th scope="col">Goal</th>
+                <th scope="col">Goal-Country</th>
+                <th scope="col" colspan="2">Ballon</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each sports}}
+            <tr>
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.name}}</td>
+                <td>{{this.totalmatch}} </td>
+                <td>{{this.goal}} </td>
+                <td>{{this.goal_country}}</td>
+                <td>{{this.ballon}}</td>
+                <td class="text-end">
+                    <a href="#" class="btn btn-success btn-restore" data-id="{{this._id}}">Restore</a>
+                    <a href="#" class="btn btn-danger" data-id="{{this._id}}" data-bs-toggle="modal"
+                        data-bs-target="#delete_tablist">destroy</a>
+                </td>
+                {{else}}
+            <tr>
+                <td colspan="6" class="text-center">
+                    Trash empty
+                    <a href="/top/create">Add tabList</a>
+                </td>
+            </tr>
+            </tr>
+            {{/each }}
+        </tbody>
+    </table>
+</div>
+{{!-- form submit delete --}}
+<form method="POST" name='form-submit-delete'></form>
+<form method="POST" name='form-submit-restore'></form>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="delete_tablist" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Tablist</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete!!!
+            </div>
+            <div class="modal-footer">
+                <button id="btn-delete" type="button" class="btn btn-primary ">Xóa Vĩnh Viễn</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy bỏ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var id;
+        const btnDelete = document.getElementById('btn-delete');
+        const deleteForm = document.forms['form-submit-delete'];
+        const restoreForm = document.forms['form-submit-restore']
+
+        //const restoreBtn = $('.btn-restore');
+        const restoreBtns = document.querySelectorAll('.btn-restore');
+
+        $('#delete_tablist').on('show.bs.modal', function (event) {
+            const button = $(event.relatedTarget);
+            id = button.data('id');
+        })
+
+        btnDelete.onclick = function () {
+            deleteForm.action = '/top/' + id + '/force?_method=DELETE';
+
+            deleteForm.submit();
+
+        }
+
+
+        for (const restore of restoreBtns) {
+            restore.addEventListener('click', restore.onclick = function (e) {
+                e.preventDefault();
+                const id = $(this).data('id');
+                restoreForm.action = '/top/' + id + '/restore?_method=PATCH';
+                restoreForm.submit();
+            })
+        }
+
+        // restoreBtn.onclick = function (e) {
+        //     e.preventDefault();
+        //     const id = $(this).data('id');
+        //     restoreForm.action = '/top/' + id + '/restore?_method=PATCH';
+        //     restoreForm.submit();
+        //    }
+
+
+
+    })
+
+</script>
+
+
+{{!-- var deleteTablist = document.getElementById('delete_tablist');
+var id; --}}
+
+{{!-- var btnRestore = $('.btn-restore');
+const formSubmitdelete = document.forms['form-submit-delete'];
+const formSubmitrestore = document.forms['form-submit-restore'];
+
+deleteTablist.addEventListener('show.bs.modal', function (event) {
+
+var button = event.relatedTarget
+var id = button.getAttribute('data-id');
+
+
+btnDelete.onclick = function () {
+formSubmitdelete.action = '/top/' + id + '/force/?_method=DELETE';
+formSubmitdelete.submit();
+}
+
+console.log(btnRestore)
+
+}) --}}
