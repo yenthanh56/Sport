@@ -6,6 +6,7 @@ class TopController {
             .lean()
             .then((sports) => res.render("top", { sports }))
             .catch(next);
+
     }
     slug(req, res, next) {
         Sport.findOne({ slug: req.params.slug })

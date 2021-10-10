@@ -1,13 +1,13 @@
 const path = require("path");
 const express = require("express");
 const app = express();
-const port = 3000;
+const port = 3004;
 const exphbs = require("express-handlebars");
 const router = require("./routers");
 const db = require("./config/db");
 const methodOverride = require("method-override");
 
-db.connect();
+db.connect()
 
 // phương thức chuyển đổi post -> put dùng thể edit
 app.use(methodOverride("_method"));
