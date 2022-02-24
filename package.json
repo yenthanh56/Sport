@@ -2,10 +2,10 @@
     "name": "sport",
     "version": "1.0.0",
     "description": "News sport",
-    "main": "src/index.js",
+    "main": "src/app.js",
     "scripts": {
         "watch": "node-sass --watch src/resources/scss --output src/public/css",
-        "start": "nodemon --inspect src/index.js",
+        "start": "nodemon --inspect src/app.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
